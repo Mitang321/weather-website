@@ -76,16 +76,74 @@ button:hover {
   gap: 10px;
 }
 
-#weather {
+#weather,
+#forecastList {
   font-size: 18px;
   opacity: 0;
   transform: translateY(10px);
   transition: opacity 0.5s, transform 0.5s;
 }
 
-#weather.visible {
+#weather.visible,
+#forecastList.visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+#forecast {
+  margin-top: 20px;
+}
+
+#forecast h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+#forecastList {
+  display: grid;
+  gap: 10px;
+}
+
+#forecastList .day {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+#history {
+  margin-top: 20px;
+}
+
+#history h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+#historyList {
+  list-style-type: none;
+  padding: 0;
+}
+
+#historyList li {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
+  border-bottom: 1px solid #ddd;
+}
+
+#historyList button {
+  background-color: #dc3545;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+#historyList button:hover {
+  background-color: #c82333;
 }
 
 @media (max-width: 600px) {

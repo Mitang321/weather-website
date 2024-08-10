@@ -3,12 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Weather App - Responsive Layout</title>
+    <title>Weather App</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <div class="container">
       <h1>Weather App</h1>
+      <div class="theme-toggle">
+        <label> <input type="checkbox" id="themeToggle" /> Dark Mode </label>
+      </div>
       <div class="search">
         <label for="location">Enter location:</label>
         <div class="input-group">
@@ -22,6 +25,13 @@
             Get Weather
           </button>
         </div>
+      </div>
+      <div class="settings">
+        <label for="unitSelect">Select Unit:</label>
+        <select id="unitSelect" onchange="updateUnit()">
+          <option value="C">Celsius</option>
+          <option value="F">Fahrenheit</option>
+        </select>
       </div>
       <div id="weather" aria-live="polite"></div>
     </div>

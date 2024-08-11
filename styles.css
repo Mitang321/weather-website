@@ -18,7 +18,7 @@ body {
   border-radius: 10px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
   text-align: center;
-  max-width: 600px;
+  max-width: 800px;
   width: 100%;
   display: grid;
   gap: 20px;
@@ -29,30 +29,23 @@ h1 {
   margin-bottom: 20px;
 }
 
-.theme-toggle {
-  display: flex;
-  justify-content: center;
+.auth,
+.theme-toggle,
+.search,
+.settings,
+#advanced {
   margin-bottom: 20px;
 }
 
-.search {
-  display: grid;
-  gap: 10px;
+.auth input,
+.auth button {
+  margin: 5px;
 }
 
-.input-group {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-#location {
+.auth input,
+.auth button {
   padding: 10px;
-  width: 70%;
-  border: 1px solid #ddd;
-  border-radius: 5px;
   font-size: 16px;
-  flex-grow: 1;
 }
 
 button {
@@ -71,7 +64,8 @@ button:hover {
   background-color: #0056b3;
 }
 
-.settings {
+.settings,
+.advanced {
   display: grid;
   gap: 10px;
 }
@@ -79,7 +73,8 @@ button:hover {
 #weather,
 #forecastList,
 #hourlyList,
-#alertsList {
+#alertsList,
+#advancedMetrics {
   font-size: 18px;
   opacity: 0;
   transform: translateY(10px);
@@ -89,7 +84,8 @@ button:hover {
 #weather.visible,
 #forecastList.visible,
 #hourlyList.visible,
-#alertsList.visible {
+#alertsList.visible,
+#advancedMetrics.visible {
   opacity: 1;
   transform: translateY(0);
 }
@@ -97,14 +93,16 @@ button:hover {
 #forecast,
 #hourlyForecast,
 #alerts,
-#preferences {
+#preferences,
+#advanced {
   margin-top: 20px;
 }
 
 #forecast h3,
 #hourlyForecast h3,
 #alerts h3,
-#preferences h3 {
+#preferences h3,
+#advanced h3 {
   font-size: 20px;
   margin-bottom: 10px;
 }
@@ -112,7 +110,8 @@ button:hover {
 #forecastList,
 #hourlyList,
 #alertsList,
-#preferencesList {
+#preferencesList,
+#advancedMetrics {
   display: grid;
   gap: 10px;
 }

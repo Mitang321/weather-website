@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   const themeToggle = document.getElementById("themeToggle");
   const unitSelect = document.getElementById("unitSelect");
+  const authStatus = document.getElementById("authStatus");
   const darkMode = localStorage.getItem("darkMode");
   const unit = localStorage.getItem("unit") || "C";
 
@@ -13,6 +14,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   loadHistory();
   loadPreferences();
+  loadAdvancedMetrics();
+  updateAuthStatus();
 
   themeToggle.addEventListener("change", toggleTheme);
   unitSelect.addEventListener("change", updateUnit);
@@ -87,7 +90,7 @@ async function getWeather() {
 
     hourlyListDiv.innerHTML = forecastData.forecast.forecastday
       .flatMap((day) =>
-        day.hour.slice(-3).map(
+        day.hour.slice(-2).map(
           (hour) => `
               <div class="hour">
                   <div>${new Date(hour.time).toLocaleTimeString([], {
@@ -120,6 +123,7 @@ async function getWeather() {
 
     addToHistory(location);
     addToPreferences(location);
+    loadAdvancedMetrics();
   } catch (error) {
     document.getElementById("weather").innerHTML = `<p>${error.message}</p>`;
     document.getElementById("forecastList").innerHTML = "";
@@ -137,7 +141,7 @@ function updateUnit() {
   const unit = document.getElementById("unitSelect").value;
   localStorage.setItem("unit", unit);
   getWeather();
-} //
+}
 
 function loadHistory() {
   const historyList = JSON.parse(localStorage.getItem("historyList")) || [];
@@ -203,3 +207,81 @@ function deletePreference(index) {
   localStorage.setItem("preferencesList", JSON.stringify(preferencesList));
   loadPreferences();
 }
+
+async function updateAuthStatus() {
+  const username = localStorage.getItem("username");
+  const authStatus = document.getElementById("authStatus");
+  if (username) {
+    authStatus.innerText = `Logged in as ${username}`;
+  } else {
+    authStatus.innerText = "Not logged in";
+  }
+}
+
+async function register() {
+  const username = document.getElementById("username").value;
+  const password = document.getElementById("password").value;
+  if (!username || !password) {
+    alert("Please enter both username and password.");
+    return;
+  }
+
+  localStorage.setItem("username", username);
+  localStorage.setItem("password", password);
+  updateAuthStatus();
+}
+
+async function login() {
+  const username = document.getElementById("username").value;
+  const password = document.getElementById("password").value;
+  const storedUsername = localStorage.getItem("username");
+  const storedPassword = localStorage.getItem("password");
+
+  if (username === storedUsername && password === storedPassword) {
+    localStorage.setItem("username", username);
+    updateAuthStatus();
+  } else {
+    alert("Invalid username or password.");
+  }
+}
+
+function logout() {
+  localStorage.removeItem("username");
+  localStorage.removeItem("password");
+  updateAuthStatus();
+}
+
+function loadAdvancedMetrics() {
+  const advancedMetrics = document.getElementById("advancedMetrics");
+  const metrics = JSON.parse(localStorage.getItem("advancedMetrics")) || [];
+
+  advancedMetrics.innerHTML = metrics
+    .map(
+      (metric) => `
+      <div class="metric">
+          <h4>${metric.title}</h4>
+          <p>${metric.description}</p>
+      </div>
+  `
+    )
+    .join("");
+}
+
+function addAdvancedMetrics() {
+  const metrics = [
+    {
+      title: "UV Index",
+      description: "Shows the UV index for the current location.",
+    },
+    {
+      title: "Air Quality",
+      description:
+        "Displays the air quality index (AQI) for the current location.",
+    },
+  ];
+
+  localStorage.setItem("advancedMetrics", JSON.stringify(metrics));
+  loadAdvancedMetrics();
+}
+
+addAdvancedMetrics();
